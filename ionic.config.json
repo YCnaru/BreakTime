@@ -1,0 +1,7 @@
+{
+  "name": "BreakTime",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
