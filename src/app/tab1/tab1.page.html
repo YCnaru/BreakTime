@@ -1,17 +1,21 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Breaktime
-    </ion-title>
+    <ion-title>BREAKTIME</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <div class="timer-container">
+    <div class="timer-box">
+      <ion-input type="number" [value]="minutosPantalla" [disabled]="enEjecucion" (ionInput)="cambiarMinutos($event)" class="timer-input"></ion-input>
+      <span>:</span>
+      <span class="timer-seconds">{{ segundosPantalla }}</span>
+    </div>
+    <p>{{ enEjecucion ? 'Corriendo...' : 'Toca los minutos para editar' }}</p>
+  </div>
 
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <div class="button-group">
+    <ion-button (click)="iniciarTimer()" fill="outline" class="action-btn">Iniciar</ion-button>
+    <ion-button (click)="pausarTimer()" fill="outline" class="action-btn">Pausar</ion-button>
+  </div>
 </ion-content>

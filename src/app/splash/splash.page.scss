@@ -1,0 +1,47 @@
+.splash-container {
+  --background: var(--ion-background-color);  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.splash-content {
+  text-align: center;
+  width: 100%;
+  padding: 0 40px;
+
+  h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: var(--ion-text-color);
+    margin-bottom: 10px;
+  }
+
+  .slogan {
+    font-size: 1.2rem;
+    color: var(--ion-text-color);
+    margin-bottom: 40px;
+    opacity: 0.7;
+  }
+
+  .btn-comenzar {
+    --background: var(--ion-text-color); 
+    --color: var(--ion-background-color); 
+    --border-radius: 8px;
+    
+    // AQUÍ ESTÁ EL TRUCO:
+    max-width: 250px;
+    margin: 0 auto;   
+    height: 50px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    
+    // Transición suave al pasar el mouse
+    transition: transform 0.2s ease;
+    
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}

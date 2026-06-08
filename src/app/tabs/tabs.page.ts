@@ -1,7 +1,8 @@
 import { Component, EnvironmentInjector, inject } from '@angular/core';
 import { IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { triangle, ellipse, square } from 'ionicons/icons';
+// 1. IMPORTAMOS los tres iconos exactos que quieres usar
+import { homeOutline, barbellOutline, settingsOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-tabs',
@@ -13,6 +14,11 @@ export class TabsPage {
   public environmentInjector = inject(EnvironmentInjector);
 
   constructor() {
-    addIcons({ triangle, ellipse, square });
+    // 2. REGISTRAMOS los iconos vinculando el nombre del HTML con la importación
+    addIcons({ 
+      'home-icon': homeOutline, 
+      'rutinas-icon': barbellOutline, 
+      'ajustes-icon': settingsOutline 
+    });
   }
 }

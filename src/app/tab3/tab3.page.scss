@@ -1,0 +1,15 @@
+.cat-card {
+  border: 2px solid var(--ion-border-color);
+  border-radius: 8px;
+  padding: 25px 10px;
+  text-align: center;
+  background: var(--ion-background-color);
+  color: var(--ion-text-color);
+}
+ion-item {
+  --background: var(--ion-background-color);
+  border: 2px solid var(--ion-border-color);
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+ion-icon { color: var(--ion-text-color); }
