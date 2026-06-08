@@ -13,6 +13,7 @@ export class Tab1Page {
   tiempoTotal: number = 45 * 60; 
   timerId: any = null;
   enEjecucion: boolean = false;
+  intervalo: any;
 
   minutosPantalla: string = '45';
   segundosPantalla: string = '00';
@@ -20,7 +21,13 @@ export class Tab1Page {
   constructor() {
     this.actualizarPantalla();
   }
-
+  reiniciarTimer() {
+    this.enEjecucion = false;
+    clearInterval(this.intervalo); 
+    
+    this.minutosPantalla = this.minutosPantalla; 
+    this.segundosPantalla = '00';
+  }
   cambiarMinutos(event: any) {
     const nuevosMinutos = parseInt(event.detail.value, 10);
     
@@ -60,4 +67,5 @@ export class Tab1Page {
     this.pausarTimer();
     alert('¡BreakTime! Es hora de tu pausa activa.');
   }
+  
 }
