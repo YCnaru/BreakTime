@@ -2,6 +2,7 @@
 import { Component } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonToggle, IonSelect, IonSelectOption } from '@ionic/angular/standalone';
 import { FormsModule } from '@angular/forms';
+import { Configuracion } from '../services/configuracion';
 
 @Component({
   selector: 'app-tab3',
@@ -15,14 +16,23 @@ export class Tab3Page {
   modoOscuro: boolean = false;
   intervalo: string = '45';
 
-  constructor() {}
+  constructor(
+    private configuracion: Configuracion
+  ) {}
+
+  actualizarIntervalo() {
+    this.configuracion.setIntervalo(
+      Number(this.intervalo)
+    );
+  }
 
   cambiarModo() {
   const body = document.body;
   
-  if (this.modoOscuro) {
-    body.classList.add('dark');
-  } else {
-    body.classList.remove('dark');
+    if (this.modoOscuro) {
+      body.classList.add('dark');
+    } else {
+      body.classList.remove('dark');
+    }
   }
-}}
+}

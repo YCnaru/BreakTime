@@ -7,9 +7,28 @@
 <ion-content class="ion-padding">
   <div class="timer-container">
     <div class="timer-box">
-      <ion-input type="number" [value]="minutosPantalla" [disabled]="enEjecucion" (ionInput)="cambiarMinutos($event)" class="timer-input"></ion-input>
+      <ion-input
+        type="number"
+        maxlenght="2"
+        min="00"
+        [value]="minutosPantalla"
+        [disabled]="enEjecucion"
+        (ionInput)="cambiarMinutos($event)"
+        class="timer-input">
+      </ion-input>
+
       <span>:</span>
-      <span class="timer-seconds">{{ segundosPantalla }}</span>
+
+      <ion-input
+        type="number"
+        maxlength="2"
+        min="00"
+        max="59"
+        [value]="segundosPantalla"
+        [disabled]="enEjecucion"
+        (ionInput)="cambiarSegundos($event)"
+        class="timer-input">
+      </ion-input>
     </div>
     <p>{{ enEjecucion ? 'Corriendo...' : 'Toca los minutos para editar' }}</p>
   </div>
