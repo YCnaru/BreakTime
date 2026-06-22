@@ -29,9 +29,17 @@ import { OnInit } from '@angular/core';
 
 export class Tab1Page implements OnInit{
 
+  constructor(
+    private configuracion: Configuracion
+  ) {}
+
   ngOnInit() {
     this.cargarConfiguracion();
   }
+
+  // ionViewWillEnter() {
+  //   this.cargarConfiguracion();
+  // }
 
   tiempoPorDefecto: number = 45 * 60;
   tiempoTotal: number = 45 * 60;
@@ -41,16 +49,6 @@ export class Tab1Page implements OnInit{
 
   minutosPantalla: string = '45';
   segundosPantalla: string = '00';
-
-  constructor(
-    private configuracion: Configuracion
-  ) {
-    this.cargarConfiguracion();
-  }
-
-  ionViewWillEnter() {
-    this.cargarConfiguracion();
-  }
 
   cargarConfiguracion() {
 
@@ -64,20 +62,38 @@ export class Tab1Page implements OnInit{
     this.actualizarPantalla();
   }
 
-  iniciarTimer() {
+/**
+ * Inicia el contador regresivo.
+ */
+iniciarTimer() {
 
-    if (this.enEjecucion) return;
+    if (this.enEjecucion) {
+      return;
+    }
+
     this.enEjecucion = true;
+
     this.timerId = setInterval(() => {
+
+      // Mientras quede tiempo
       if (this.tiempoTotal > 0) {
+
         this.tiempoTotal--;
+
         this.actualizarPantalla();
-      } else {
-        this.tiempoTotal = 0;
-        this.actualizarPantalla();
-        this.timerTerminado();
+
+        // Si llegó exactamente a cero
+        if (this.tiempoTotal === 0) {
+
+          clearInterval(this.timerId);
+
+          this.timerTerminado();
+        }
+
       }
+
     }, 1000);
+
   }
 
   pausarTimer() {
@@ -96,7 +112,14 @@ export class Tab1Page implements OnInit{
   }
 
   cambiarMinutos(event: any) {
-    let minutos = Number(event.detail.value);
+
+    let valor = String(event.detail.value ?? '');
+
+    if (valor.length > 2) {
+      valor = valor.substring(0, 2);
+    }
+
+    let minutos = Number(valor);
 
     if (isNaN(minutos)) return;
 
@@ -108,16 +131,20 @@ export class Tab1Page implements OnInit{
     this.tiempoTotal =
       (minutos * 60) + segundosActuales;
 
-    if (this.tiempoTotal < 2) {
-      this.tiempoTotal =
-        this.configuracion.getIntervalo() * 60;
-    }
+    this.tiempoPorDefecto = this.tiempoTotal;
 
     this.actualizarPantalla();
   }
 
   cambiarSegundos(event: any) {
-    let segundos = Number(event.detail.value);
+    let valor = String(event.detail.value ?? '');
+
+    if (valor.length > 2) {
+      valor = valor.substring(0, 2);
+    }
+
+    let segundos = Number(valor);
+
     if (isNaN(segundos)) return;
 
     segundos =
@@ -129,11 +156,7 @@ export class Tab1Page implements OnInit{
     this.tiempoTotal =
       (minutosActuales * 60) + segundos;
 
-    if (this.tiempoTotal < 2) {
-
-    this.tiempoTotal =
-      this.configuracion.getIntervalo() * 60;
-    }
+    this.tiempoPorDefecto = this.tiempoTotal;
 
     this.actualizarPantalla();
   }
@@ -159,6 +182,9 @@ export class Tab1Page implements OnInit{
 
   timerTerminado() {
     this.pausarTimer();
+    // Asegura que nunca aparezcan valores negativos
+    this.tiempoTotal = 0;
+    this.actualizarPantalla();
     alert('¡BreakTime! Es hora de tu pausa activa.');
   }
 
